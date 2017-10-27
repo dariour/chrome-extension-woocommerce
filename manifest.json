@@ -1,0 +1,27 @@
+{
+	"manifest_version": 2,
+	"name": "Woocommerce in Chrome",
+	"content_scripts": [{
+		"js": ["popup.js", "popup.js"],
+		"css": ["style.css"],
+		"matches": ["http://*/*", "https://*/*"]
+	}],
+	"description": "Chrome extension for updating woocommerce orders.",
+	"version": "1.0",
+	"options_ui": {
+		"page": "options.html",
+		"chrome_style": true
+	},
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_popup": "popup.html"
+	},
+	"permissions": [
+		"activeTab",
+		"storage",
+		"http://testna.com.hr/testinstall"
+	]
+}

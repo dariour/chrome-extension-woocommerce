@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Chrome extension for updating woocommerce orders">
+    <style type="text/css">
+      body {
+        margin: 10px;
+        white-space: nowrap;
+		background-color: #f1f1f1;
+      }
+
+      h1 {
+        font-size: 15px;
+      }
+
+      #container {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+      }
+	  table, thead, tbody {
+		width: 100%;
+	  }
+    </style>
+	<link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
+  <body>
+    <script src="popup.js"></script>
+	<div style="max-height: 200px; min-width: 400px; overflow-y: scroll;">
+	<p id="test"></p>
+		<div>
+		<a href="http://testna.com.hr/testinstall/wp-admin/edit.php?post_type=shop_order" target="_blank">See all orders</a>
+		<table id="orders">
+			<thead>
+			<td>Customer details</td>
+			<td>Date</td>
+			<td>Total</td>
+			<td>Actions</td>
+			</thead>
+			<tbody id="order-table-body">
+			<tr style="border: 1px solid black">
+				<td>
+					<h5 class="order-number">Narudžba #1</h5>
+					<p class="first-last-name">Ime i prezime</p>
+					<a class="email" href="mail:email@gmail.com">email@gmail.com</a>
+				</td>
+				<td>
+					<p class="date">12.06.2017</p>
+				</td>
+				<td>
+					<p class="total">55.00 HRK</p>
+					<p class="payment-method">via PayPal</p>
+				</td>
+				<td>
+				<div>
+					<button class="processing-order-button" id="1247">P</button>
+					<button class="complete-order-button" id="1247">C</button>
+					<button class="view-order-button" id="1247">V</button>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h5 class="order-number">Narudžba #1</h5>
+					<p class="first-last-name">Ime i prezime</p>
+					<a class="email" href="mail:email@gmail.com">email@gmail.com</a>
+				</td>
+				<td>
+					<p class="date">12.06.2017</p>
+				</td>
+				<td>
+					<p class="total">55.00 HRK</p>
+					<p class="payment-method">via PayPal</p>
+				</td>
+				<td>
+				<div>
+					<button class="processing-order-button" id="1244">P</button>
+					<button class="complete-order-button" id="1244">C</button>
+					<button class="view-order-button" id="1244">V</button>
+				</div>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
