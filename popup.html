@@ -5,45 +5,37 @@
 	<meta charset="UTF-8">
 	<meta name="description" content="Chrome extension for updating woocommerce orders">
     <style type="text/css">
-      body {
-        margin: 10px;
-        white-space: nowrap;
+	body {
+		margin: 10px;
+		white-space: nowrap;
 		background-color: #f1f1f1;
-      }
-
-      h1 {
-        font-size: 15px;
-      }
-
-      #container {
-        align-items: center;
-        display: flex;
-        justify-content: space-between;
-      }
-	  table, thead, tbody {
-		width: 100%;
-	  }
+		font-family: "Verdana", sans-serif;
+	}
     </style>
 	<link rel="stylesheet" type="text/css" href="style.css">
   </head>
 
   <body>
     <script src="popup.js"></script>
-	<div style="max-height: 200px; min-width: 400px; overflow-y: scroll;">
-	<p id="test"></p>
-		<div>
-		<a href="http://testna.com.hr/testinstall/wp-admin/edit.php?post_type=shop_order" target="_blank">See all orders</a>
+	<div class="order-table-wrapper">
+		<div class="header">
+			<a href="http://testna.com.hr/testinstall/wp-admin/edit.php?post_type=shop_order" target="_blank" class="woocommerce-orders-link">See all orders</a>
+		</div>
 		<table id="orders">
 			<thead>
+			<td>Status</td>
 			<td>Customer details</td>
 			<td>Date</td>
 			<td>Total</td>
 			<td>Actions</td>
 			</thead>
-			<tbody id="order-table-body">
-			<tr style="border: 1px solid black">
+			<tbody class="order-table-body">
+			<tr>
 				<td>
-					<h5 class="order-number">Narudžba #1</h5>
+					<p>Pending</p>
+				</td>
+				<td>
+					<p class="order-number">Narudžba #1</p>
 					<p class="first-last-name">Ime i prezime</p>
 					<a class="email" href="mail:email@gmail.com">email@gmail.com</a>
 				</td>
@@ -56,15 +48,18 @@
 				</td>
 				<td>
 				<div>
-					<button class="processing-order-button" id="1247">P</button>
-					<button class="complete-order-button" id="1247">C</button>
-					<button class="view-order-button" id="1247">V</button>
+					<button class="processing-order-button update-order-button" id="1247-processing" title="Processing"></button>
+					<button class="complete-order-button update-order-button" id="1247-complete" title="Complete"></button>
+					<button class="view-order-button update-order-button" id="1247-view" title="View"></button>
 				</div>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<h5 class="order-number">Narudžba #1</h5>
+					<p>Pending</p>
+				</td>
+				<td>
+					<p class="order-number">Narudžba #1</p>
 					<p class="first-last-name">Ime i prezime</p>
 					<a class="email" href="mail:email@gmail.com">email@gmail.com</a>
 				</td>
@@ -77,15 +72,14 @@
 				</td>
 				<td>
 				<div>
-					<button class="processing-order-button" id="1244">P</button>
-					<button class="complete-order-button" id="1244">C</button>
-					<button class="view-order-button" id="1244">V</button>
+					<button class="processing-order-button update-order-button" id="1244-processing" title="Processing"></button>
+					<button class="complete-order-button update-order-button" id="1244-complete" title="Complete"></button>
+					<button class="view-order-button update-order-button" id="1244-view" title="View"></button>
 				</div>
 				</td>
 			</tr>
 			</tbody>
 		</table>
-		</div>
 	</div>
   </body>
 </html>

@@ -4,7 +4,7 @@ function setURL(http_protocol, site_url, consumer_key, consumer_secret){
 
 function verify_url(url){
 	
-}
+};
 // Saves options to chrome.storage
 function saveOptions() {
 	let http_protocol = document.getElementById('http_protocol').value;
@@ -25,7 +25,7 @@ function saveOptions() {
 		status.textContent = '';
     }, 750);
   });
-}
+};
 
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.

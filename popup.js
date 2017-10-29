@@ -43,9 +43,19 @@ function completeOrder(id){
 	changeOrderStatus('jconfig.json', url, {status: "completed"});
 }
 
-function processingOrder(){
+function processingOrder(id){
 	let url = "https://testna.com.hr/testinstall/wp-json/wc/v2/orders/" + id + "/?consumer_key=ck_7dafbac6e59b7ffdd0f1208e27292c231119c6c5&consumer_secret=cs_bb466f26c0adfd2f43ec9874ca80b34969a04753";
 	changeOrderStatus('jconfig.json', url, {status: "processing"});
+}
+
+function viewOrder(id){
+	let url = "http://testna.com.hr/testinstall/wp-admin/post.php?post=" + id + "&action=edit";
+	var win = window.open(url, '_blank');
+	win.focus();
+}
+
+function extractButtonID(id){
+	return parseInt(id.replace(/[^0-9\.]/g, ''), 10);
 }
 
 // ADD EVENT LISTENERS TO COMPLETE ORDER BUTTONS
@@ -55,19 +65,31 @@ document.addEventListener('DOMContentLoaded', function() {
 		console.log(completeOrderButtons.item(i));
 		let completeOrderButton = completeOrderButtons.item(i);
 		completeOrderButton.addEventListener('click', function() {
-			completeOrder(completeOrderButton.id);
+			completeOrder(extractButtonID(completeOrderButton.id));
     });
 	}
 });
 
-// ADD EVENT LISTENERS TO COMPLETE PROCESSING BUTTONS
+// ADD EVENT LISTENERS TO PROCESSING ORDER BUTTONS
 document.addEventListener('DOMContentLoaded', function() {
     let processingOrderButtons = document.getElementsByClassName("processing-order-button");
 	for (var i = 0; i < processingOrderButtons.length; i++){
 		console.log(processingOrderButtons.item(i));
 		let processingOrderButton = processingOrderButtons.item(i);
 		processingOrderButton.addEventListener('click', function() {
-			processingOrder(processingOrderButton.id);
+			processingOrder(extractButtonID(processingOrderButton.id));
+    });
+	}
+});
+
+// ADD EVENT LISTENERS TO VIEW ORDER BUTTONS
+document.addEventListener('DOMContentLoaded', function() {
+    let viewOrderButtons = document.getElementsByClassName("view-order-button");
+	for (var i = 0; i < viewOrderButtons.length; i++){
+		console.log(viewOrderButtons.item(i));
+		let viewOrderButton = viewOrderButtons.item(i);
+		viewOrderButton.addEventListener('click', function() {
+			viewOrder(extractButtonID(viewOrderButton.id));
     });
 	}
 });
