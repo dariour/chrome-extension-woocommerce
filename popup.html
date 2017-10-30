@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Chrome extension for updating woocommerce orders">
+    <style type="text/css">
+	body {
+		margin: 10px;
+		white-space: nowrap;
+		background-color: #f1f1f1;
+		font-family: "Verdana", sans-serif;
+	}
+    </style>
+	<link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
+  <body>
+	<script src="scripts/jquery-3.2.1.min.js"></script>
+	<script src="scripts/popup.js"></script>
+	<div class="order-table-wrapper">
+		<div class="header">
+			<a href="http://testna.com.hr/testinstall/wp-admin/edit.php?post_type=shop_order" target="_blank" class="woocommerce-orders-link">See all orders</a>
+		</div>
+		<table id="orders-table">
+			<thead>
+			<td>Status</td>
+			<td>Customer details</td>
+			<td>Date & Time</td>
+			<td>Total</td>
+			<td>Actions</td>
+			</thead>
+			<tbody id="order-table-body">
+			<tr>
+				<td>
+					<p>Pending</p>
+				</td>
+				<td>
+					<p class="order-number">Narudžba #1</p>
+					<p class="first-last-name">Ime i prezime</p>
+					<p><a class="email" href="mail:email@gmail.com">email@gmail.com</a></p>
+				</td>
+				<td>
+					<p class="date">12.06.2017</p>
+				</td>
+				<td>
+					<p class="total">55.00 HRK</p>
+					<p class="payment-method">via PayPal</p>
+				</td>
+				<td>
+				<div>
+					<button class="processing-order-button update-order-button" id="1247-processing" title="Processing"></button>
+					<button class="complete-order-button update-order-button" id="1247-complete" title="Complete"></button>
+					<button class="view-order-button update-order-button" id="1247-view" title="View"></button>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>Pending</p>
+				</td>
+				<td>
+					<p class="order-number">Narudžba #1</p>
+					<p class="first-last-name">Ime i prezime</p>
+					<a class="email" href="mail:email@gmail.com">email@gmail.com</a>
+				</td>
+				<td>
+					<p class="date">12.06.2017</p>
+				</td>
+				<td>
+					<p class="total">55.00 HRK</p>
+					<p class="payment-method">via PayPal</p>
+				</td>
+				<td>
+				<div>
+					<button class="processing-order-button update-order-button" id="1244-processing" title="Processing"></button>
+					<button class="complete-order-button update-order-button" id="1244-complete" title="Complete"></button>
+					<button class="view-order-button update-order-button" id="1244-view" title="View"></button>
+				</div>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
