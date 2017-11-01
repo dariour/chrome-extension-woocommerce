@@ -1,19 +1,19 @@
 function downloadOrders() {
   chrome.storage.sync.get(
-	'completeUrl',
-	function(items) {
-		loadJSON('jconfig.json', items.completeUrl, function printJSONObject(result){
-			saveOrders(result);
+	'options'
+      , function (items) {
+        let URL = "https://" + items.options.siteURL + "/wp-json/wc/v2/orders/?consumer_key=" + items.options.consumerKey + "&consumer_secret=" + items.options.consumerSecret;
+        loadJSON('jconfig.json', URL, function printJSONObject(result) {         
+            saveOrders(result);
 		});
 	});
-};
+}
 
 function saveOrders(allOrders) {
 	chrome.storage.local.clear();
 	chrome.storage.local.set({
-		'allOrders': allOrders,
-	}, function() {
-		console.log(allOrders);
+		'allOrders': allOrders
+    }, function () {
   });
 }
 
@@ -21,7 +21,7 @@ function loadJSON(path, url, callback) {
 	var result;
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status == "200") {
+        if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == "200") {
 			result = JSON.parse(xhr.responseText);
 			callback(result);
         }
@@ -31,25 +31,17 @@ function loadJSON(path, url, callback) {
     return xhr.onreadystatechange();
 }
 
-(function initialize(){
-	chrome.storage.sync.get(
-		'completeUrl',
-		function(items) {
-			loadJSON('jconfig.json', items.completeUrl, function printJSONObject(result){
-				saveOrders(result);
-			});
-		});	
-})();
-
 (function loop() {
   setTimeout(function () {
     chrome.storage.sync.get(
-	'completeUrl',
-	function(items) {
-		loadJSON('jconfig.json', items.completeUrl, function printJSONObject(result){
+	'options',
+    function (items) {
+        refreshRate = items.options.refreshRate;
+        let URL = "https://" + items.options.siteURL + "/wp-json/wc/v2/orders/?consumer_key=" + items.options.consumerKey + "&consumer_secret=" + items.options.consumerSecret;
+        loadJSON('jconfig.json', URL, function printJSONObject(result) {
 			saveOrders(result);				
 		});
 	});
-    loop()
-  }, 60000);
+    loop();
+  }, 6000);
 }());

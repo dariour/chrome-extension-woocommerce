@@ -1,0 +1,124 @@
+/* 
+ --------------
+| POPUP STYLES |
+ --------------
+*/
+
+/* 
+ -------------
+| POPUP TABLE |
+ -------------
+*/
+#orders-table {
+	width: 100%;
+	border-collapse: collapse;
+	vertical-align: center;
+	text-align: left;
+}
+
+#orders-table thead {
+	font-weight: bold;
+}
+
+#orders-table thead td {
+	padding: 6px;
+}
+
+#orders-table tbody tr:hover {
+	background-color: #ffffff;
+}
+
+#orders-table tbody tr td {
+    padding: 6px 6px 6px 8px;
+}
+
+.order-table-wrapper {
+	max-height: 200px;
+	min-width: 700px;
+	overflow-y: scroll;
+}
+
+.order-status-icon{
+    height: 32px;
+    width: 32px;
+}
+/* 
+ ---------------
+| POPUP BUTTONS |
+ ---------------
+*/
+.update-order-button {
+    height: 28px;
+    width: 28px;
+    border: 1px solid black;
+    border-radius: 10%;
+    margin: 4px;
+}
+
+.processing-order-button {
+	background: url("../icons/icon-processing.png") no-repeat;
+	background-size: 26px 26px;
+}
+
+.processing-order-button:hover {
+	background: url("../icons/icon-processing-hover.png") no-repeat;
+	background-size: 26px 26px;
+	background-color: #4285f4;
+	cursor: pointer;
+}
+
+.complete-order-button {
+	background: url("../icons/icon-complete.png") no-repeat;
+	background-size: 26px 26px;
+}
+
+.complete-order-button:hover {
+	background: url("../icons/icon-complete-hover.png") no-repeat;
+	background-size: 26px 26px;
+	background-color: #ea4335;
+	cursor: pointer;
+}
+
+.view-order-button {
+	background: url("../icons/icon-view.png") no-repeat;
+	background-size: 26px 26px;
+}
+
+.view-order-button:hover {
+	background: url("../icons/icon-view-hover.png") no-repeat;
+	background-size: 26px 26px;
+	background-color: #34a853;
+	cursor: pointer;
+}
+
+.delete-order-button {
+    background: url("../icons/icon-delete.png") no-repeat;
+    background-size: 26px 26px;
+}
+
+.delete-order-button:hover {
+    background: url("../icons/icon-delete-hover.png") no-repeat;
+    background-size: 26px 26px;
+    background-color: #34a853;
+    cursor: pointer;
+}
+
+
+/* 
+ ------------
+| POPUP MISC |
+ ------------
+*/
+
+.header {
+	margin-bottom: 15px;
+}
+
+.popup-notificaction {
+    width: 100%;
+    height: 0px;
+    text-align: left;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 15%;
+}
