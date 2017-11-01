@@ -81,7 +81,8 @@ function insertData(result, data) {
 //FUNCTIONS FOR CHANGING ORDER STATUS
 //-------------------------------------
 
-function initializeChangeOrder(action, id){
+function initializeChangeOrder(action, id) {
+    $(".popup-notification").append("<span>Loading. Please wait.</span>");
 	chrome.storage.sync.get(
 		'options'
 	, function(items) {
@@ -129,7 +130,7 @@ function reloadItems() {
         function (items) {
             let URL = "https://" + items.options.siteURL + "/wp-json/wc/v2/orders/?consumer_key=" + items.options.consumerKey + "&consumer_secret=" + items.options.consumerSecret;
             loadJSON('jconfig.json', URL, function printJSONObject(result) {
-                saveOrders(result, function call() {
+                saveOrdersToStorage(result, function call() {
                     location.reload();
                     notify();
                 });
@@ -138,7 +139,7 @@ function reloadItems() {
     );
 }
 
-function saveOrders(allOrders, callback) {
+function saveOrdersToStorage(allOrders, callback) {
     chrome.storage.local.clear();
     chrome.storage.local.set({
         'allOrders': allOrders
@@ -166,8 +167,6 @@ function loadJSON(path, url, callback) {
 //--------------------------------------------------------------------
 
 
-
-
 //--------------------------------------------------------------------
 // MISC WORK
 // -------------------------------------------------------------------
@@ -182,12 +181,13 @@ chrome.storage.sync.get(
 //--------------------------------------------------------------------
 
 (function initialize() {
+    chrome.browserAction.setBadgeText({ text: '' });
     chrome.storage.sync.get(
         'options'
         , function (items) {
             let URL = "https://" + items.options.siteURL + "/wp-json/wc/v2/orders/?consumer_key=" + items.options.consumerKey + "&consumer_secret=" + items.options.consumerSecret;
             loadJSON('jconfig.json', URL, function printJSONObject(result) {
-                saveOrders(result, function callback(){});
+                saveOrdersToStorage(result, function callback(){});
             });
         });
 	loadOrdersFromStorage();

@@ -103,22 +103,17 @@
     cursor: pointer;
 }
 
-
 /* 
  ------------
 | POPUP MISC |
  ------------
 */
 
-.header {
-	margin-bottom: 15px;
+.popup-notification {
+    display: block;
+    margin 4px;
 }
 
-.popup-notificaction {
-    width: 100%;
-    height: 0px;
-    text-align: left;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 15%;
+.header {
+	margin-bottom: 15px;
 }

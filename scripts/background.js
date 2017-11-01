@@ -1,9 +1,11 @@
+var lastOrderNumber = 0;
+
 function downloadOrders() {
   chrome.storage.sync.get(
 	'options'
       , function (items) {
         let URL = "https://" + items.options.siteURL + "/wp-json/wc/v2/orders/?consumer_key=" + items.options.consumerKey + "&consumer_secret=" + items.options.consumerSecret;
-        loadJSON('jconfig.json', URL, function printJSONObject(result) {         
+        loadJSON('jconfig.json', URL, function printJSONObject(result) {  
             saveOrders(result);
 		});
 	});
@@ -14,6 +16,14 @@ function saveOrders(allOrders) {
 	chrome.storage.local.set({
 		'allOrders': allOrders
     }, function () {
+        console.log(parseInt(lastOrderNumber));
+        if (parseInt(lastOrderNumber) < parseInt(allOrders[0].id)) {
+            if (allOrders[0].status === "pending"){
+                chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
+                chrome.browserAction.setBadgeText({ text: 'New' });
+                lastOrderNumber = allOrders[0].id;
+            }
+        }
   });
 }
 
@@ -43,5 +53,5 @@ function loadJSON(path, url, callback) {
 		});
 	});
     loop();
-  }, 6000);
+  }, 60000);
 }());
