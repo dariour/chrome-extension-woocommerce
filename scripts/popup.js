@@ -20,14 +20,14 @@ function loadOrdersFromStorage() {
 }
 
 // Manipulate loaded data and insert it into template/HTML
-function insertData(result, data) {
+function insertData(result) {
     let orderRow = "";
-
+    console.log(result);
     // Remove old data
     $("#order-table-body tr").remove();
     for (let i = 0; i < result.allOrders.length; i++) {
         // Dont display order if completed
-        if (result.allOrders[i].status === "completed") continue;
+        if (result.allOrders[i].status === "completed" || result.allOrders[i].status === "canceled" || result.allOrders[i].status === "refunded" || result.allOrders[i].status === "failed") continue;
 
         // Insert data into template by replacing placeholders with actual data
         orderRow = ordersRowTemplate
@@ -39,18 +39,25 @@ function insertData(result, data) {
             .replaceAll("order_payment_method", result.allOrders[i].payment_method);
 
         // Insert images into template
-        if (result.allOrders[i].status == "pending") {
+        if (result.allOrders[i].status == "processing") {
+            orderRow = orderRow
+                .replaceAll("order_status_icon", "/icons/icon-processed.png")
+                .replaceAll("order_status_title", "Processing");
+        }
+        else if (result.allOrders[i].status == "completed") {
+            orderRow = orderRow
+                .replaceAll("order_status_icon", "/icons/icon-completed.png")
+                .replaceAll("order_status_title", "Completed");
+        }
+        else if (result.allOrders[i].status == "pending"){
             orderRow = orderRow
                 .replaceAll("order_status_icon", "/icons/icon-pending-payment.png")
                 .replaceAll("order_status_title", "Pending Payment");
         }
-        else if (result.allOrders[i].status == "processing") {
-            orderRow = orderRow.replaceAll("order_status_icon", "/icons/icon-processed.png")
-                .replaceAll("order_status_title", "Processing");
-        }
-        else if (result.allOrders[i].status == "completed") {
-            orderRow = orderRow.replaceAll("order_status_icon", "/icons/icon-completed.png")
-                .replaceAll("order_status_title", "Completed");
+        else if (result.allOrders[i].status == "on-hold"){
+            orderRow = orderRow
+                .replaceAll("order_status_icon", "/icons/icon-on-hold.png")
+                .replaceAll("order_status_title", "On hold");
         }
 
         // Insert row into HTML
