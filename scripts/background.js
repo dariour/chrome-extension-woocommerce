@@ -18,7 +18,6 @@ function saveOrders(allOrders) {
 	chrome.storage.local.set({
 		'allOrders': allOrders
     }, function () {
-        console.log(parseInt(lastOrderNumber));
         if (parseInt(lastOrderNumber) < parseInt(allOrders[0].id)) {
             if (allOrders[0].status === "pending"){
                 chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
