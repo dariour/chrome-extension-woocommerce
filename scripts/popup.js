@@ -1,5 +1,6 @@
 // Table row template with placeholders
 var ordersRowTemplate = '<tr><td><img class="order-status-icon" title="order_status_title" src="order_status_icon"></td><td><p class="order-number">Narudžba <strong>#order_number</strong> by</p><p class="first-last-name">order_name</p><p><a class="email" href="mailto:order_email">order_email</a></p></td><td><p class="date">order_date</p></td><td><p class="total">order_total</p><p class="payment-method">order_payment_method</p></td><td><div><button class="processing-order-button update-order-button" id="order_number-processing" title="Processing"></button><button class="complete-order-button update-order-button" id="order_number-complete" title="Complete"></button><button class="view-order-button update-order-button" id="order_number-view" title="View"></button></div></td></tr>';
+
 //------------------------------------------------------
 // LOAD ORDERS FROM STORAGE AND INSERT INTO POPUP TABLE
 //------------------------------------------------------
@@ -25,6 +26,7 @@ function insertData(result) {
     console.log(result);
     // Remove old data
     $("#order-table-body tr").remove();
+
     for (let i = 0; i < result.allOrders.length; i++) {
         // Dont display order if completed
         if (result.allOrders[i].status === "completed" || result.allOrders[i].status === "canceled" || result.allOrders[i].status === "refunded" || result.allOrders[i].status === "failed") continue;
@@ -39,25 +41,29 @@ function insertData(result) {
             .replaceAll("order_payment_method", result.allOrders[i].payment_method);
 
         // Insert images into template
-        if (result.allOrders[i].status == "processing") {
-            orderRow = orderRow
-                .replaceAll("order_status_icon", "/icons/icon-processed.png")
-                .replaceAll("order_status_title", "Processing");
-        }
-        else if (result.allOrders[i].status == "completed") {
-            orderRow = orderRow
-                .replaceAll("order_status_icon", "/icons/icon-completed.png")
-                .replaceAll("order_status_title", "Completed");
-        }
-        else if (result.allOrders[i].status == "pending"){
-            orderRow = orderRow
-                .replaceAll("order_status_icon", "/icons/icon-pending-payment.png")
-                .replaceAll("order_status_title", "Pending Payment");
-        }
-        else if (result.allOrders[i].status == "on-hold"){
-            orderRow = orderRow
-                .replaceAll("order_status_icon", "/icons/icon-on-hold.png")
-                .replaceAll("order_status_title", "On hold");
+        switch (result.allOrders[i].status) {
+            case "processing":
+                orderRow = orderRow
+                    .replaceAll("order_status_icon", "/icons/icon-processed.png")
+                    .replaceAll("order_status_title", "Processing");
+                break;
+            case "completed":
+                orderRow = orderRow
+                    .replaceAll("order_status_icon", "/icons/icon-completed.png")
+                    .replaceAll("order_status_title", "Completed");
+                break;
+            case "pending":
+                orderRow = orderRow
+                    .replaceAll("order_status_icon", "/icons/icon-pending-payment.png")
+                    .replaceAll("order_status_title", "Pending Payment");
+                break;
+            case "on-hold":
+                orderRow = orderRow
+                    .replaceAll("order_status_icon", "/icons/icon-on-hold.png")
+                    .replaceAll("order_status_title", "On hold");
+                break;
+            default:
+                break;
         }
 
         // Insert row into HTML
@@ -75,17 +81,21 @@ function insertData(result) {
         });
 
         // Hide unnecessary update buttons
-        if (result.allOrders[i].status == "processing") {
-            $("#" + result.allOrders[i].number + "-processing").css("visibility", "hidden");
-        }
-        else if (result.allOrders[i].status == "completed") {
-            $("#" + result.allOrders[i].number + "-complete").css("visibility", "hidden");
+        switch (result.allOrders[i].status) {
+            case "processing":
+                $("#" + result.allOrders[i].number + "-processing").css("visibility", "hidden");
+                break;
+            case "completed":
+                $("#" + result.allOrders[i].number + "-complete").css("visibility", "hidden");
+                break;
+            default:
+                break;
         }
 	}
 }
 
 //-------------------------------------
-//FUNCTIONS FOR CHANGING ORDER STATUS
+// 
 //-------------------------------------
 
 function initializeChangeOrder(action, id) {
@@ -128,7 +138,7 @@ function viewOrder(viewURL, id){
 }
 
 //--------------------------------------------------------------------
-// FUNCTIONS FOR DOWNLOADING FROM SERVER
+// GET REQUEST TO SERVER
 //--------------------------------------------------------------------
 
 function reloadItems() {
@@ -136,7 +146,7 @@ function reloadItems() {
         'options',
         function (items) {
             let URL = "https://" + items.options.siteURL + "/wp-json/wc/v2/orders/?consumer_key=" + items.options.consumerKey + "&consumer_secret=" + items.options.consumerSecret;
-            loadJSON('jconfig.json', URL, function printJSONObject(result) {
+            loadJSON('jconfig.json', URL, function saveJSON(result) {
                 saveOrdersToStorage(result, function call() {
                     location.reload();
                     notify();
@@ -170,14 +180,10 @@ function loadJSON(path, url, callback) {
 }
 
 //--------------------------------------------------------------------
-// EYE CANDY
-//--------------------------------------------------------------------
-
-
-//--------------------------------------------------------------------
 // MISC WORK
-// -------------------------------------------------------------------
+//--------------------------------------------------------------------
 
+// Add href attr to link
 chrome.storage.sync.get(
     'options'
     , function (items) {
@@ -185,7 +191,8 @@ chrome.storage.sync.get(
         $("#popup-see-all-orders").attr("href", URL);
     });
 
-//--------------------------------------------------------------------
+//----------------------------------------------------------------------
+
 
 (function initialize() {
     chrome.browserAction.setBadgeText({ text: '' });
@@ -193,13 +200,14 @@ chrome.storage.sync.get(
         'options'
         , function (items) {
             let URL = "https://" + items.options.siteURL + "/wp-json/wc/v2/orders/?consumer_key=" + items.options.consumerKey + "&consumer_secret=" + items.options.consumerSecret;
-            loadJSON('jconfig.json', URL, function printJSONObject(result) {
+            loadJSON('jconfig.json', URL, function saveJSON(result) {
                 saveOrdersToStorage(result, function callback(){});
             });
         });
 	loadOrdersFromStorage();
 })();
 
+// periodically check for new data
 (function loop() {
     setTimeout(function () {
     loadOrdersFromStorage();

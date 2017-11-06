@@ -1,16 +1,18 @@
 var lastOrderNumber = 0;
 
+// Gets options frome chrome.storage
 function downloadOrders() {
   chrome.storage.sync.get(
 	'options'
       , function (items) {
         let URL = "https://" + items.options.siteURL + "/wp-json/wc/v2/orders/?consumer_key=" + items.options.consumerKey + "&consumer_secret=" + items.options.consumerSecret;
-        loadJSON('jconfig.json', URL, function printJSONObject(result) {  
+        loadJSON('jconfig.json', URL, function saveJSON(result) {  
             saveOrders(result);
 		});
 	});
 }
 
+// Saves JSON data to chrome.storage
 function saveOrders(allOrders) {
 	chrome.storage.local.clear();
 	chrome.storage.local.set({
@@ -27,6 +29,7 @@ function saveOrders(allOrders) {
   });
 }
 
+// Get request to server
 function loadJSON(path, url, callback) {
 	var result;
     var xhr = new XMLHttpRequest();
@@ -41,14 +44,14 @@ function loadJSON(path, url, callback) {
     return xhr.onreadystatechange();
 }
 
+// Periodically checking for new data
 (function loop() {
   setTimeout(function () {
     chrome.storage.sync.get(
 	'options',
     function (items) {
-        refreshRate = items.options.refreshRate;
         let URL = "https://" + items.options.siteURL + "/wp-json/wc/v2/orders/?consumer_key=" + items.options.consumerKey + "&consumer_secret=" + items.options.consumerSecret;
-        loadJSON('jconfig.json', URL, function printJSONObject(result) {
+        loadJSON('jconfig.json', URL, function saveJSON(result) {
 			saveOrders(result);				
 		});
 	});
