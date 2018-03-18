@@ -1,9 +1,9 @@
 // Saves options to chrome.storage
 function saveOptions() {
-	let consumer_key = document.getElementById('consumer-key').value;
-	let consumer_secret = document.getElementById('consumer-secret').value;
-    let site_url = document.getElementById('site-url').value;
-    let options = {
+   let consumer_key = document.getElementById('consumer-key').value;
+   let consumer_secret = document.getElementById('consumer-secret').value;
+   let site_url = document.getElementById('site-url').value;
+   let options = {
         "consumerKey": consumer_key,
         'consumerSecret': consumer_secret,
         'siteURL': site_url
