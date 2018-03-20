@@ -23,10 +23,10 @@ function saveOptions() {
 function restoreOptions() {
 	chrome.storage.sync.get(
 		'options'
-	, function (items) {
-	document.getElementById('consumer-key').value = items.options.consumerKey;
-	document.getElementById('consumer-secret').value = items.options.consumerSecret;
-	document.getElementById('site-url').value = items.options.siteURL;
+		, function (items) {
+			document.getElementById('consumer-key').value = items.options.consumerKey;
+			document.getElementById('consumer-secret').value = items.options.consumerSecret;
+			document.getElementById('site-url').value = items.options.siteURL;
 		}
 	);
 }
