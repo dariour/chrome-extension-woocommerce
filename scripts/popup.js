@@ -16,7 +16,7 @@ function loadOrdersFromStorage() {
 	chrome.storage.local.get(
 		'allOrders',
         function (result) {
-			insertData(result);
+		insertData(result);
 	});
 }
 
